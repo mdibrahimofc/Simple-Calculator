@@ -71,10 +71,8 @@
                 const operators = ["+", "-", "*", "/"]
                 let operator = '';
                 let operands = [];
-                console.log(expression);
-                for(let i = 0; i < operators.lenth; i++){
+                for(let i = 0; i < operators.length; i++){
                     let index = expression.indexOf(operators[i])
-                    console.log(index);
                     if(index !== -1){
                         operator = operators[i];
                         operands = expression.split(operators[i]);
@@ -92,7 +90,6 @@
                         return 'Error'
                     }}
                 }
-                console.log(operator, operands)
                 if(operator && operands.length === 2){
                     const operands1 = Number(operands[0])
                     const operands2 = Number(operands[1])
