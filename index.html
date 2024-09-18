@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <style>
+        #calculator {
+            max-width: 300px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #000;
+            border-radius: 10px;
+        }
+        .btn {
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            font-size: 18px;
+        }
+        #display {
+            width: 100%;
+            height: 50px;
+            font-size: 20px;
+            text-align: right;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="calculator">
+        <input type="text" id="display" disabled />
+        <br/>
+        <button class="btn">7</button>
+        <button class="btn">8</button>
+        <button class="btn">9</button>
+        <button class="btn">/</button>
+        <br/>
+        <button class="btn">4</button>
+        <button class="btn">5</button>
+        <button class="btn">6</button>
+        <button class="btn">*</button>
+        <br/>
+        <button class="btn">1</button>
+        <button class="btn">2</button>
+        <button class="btn">3</button>
+        <button class="btn">-</button>
+        <br/>
+        <button class="btn">0</button>
+        <button class="btn">C</button>
+        <button class="btn">=</button>
+        <button class="btn">+</button>
+    </div>
+
+    <script>
+        document.getElementById("calculator").addEventListener("click", function(event){
+            if(event.target.classList.contains("btn")){
+                const buttonValue = event.target.innerText;
+                const display = document.getElementById("display");
+                if(buttonValue === 'C'){
+                    display.value = null;
+                }else if(buttonValue === '='){
+                    display.value = calculate(display.value);
+                }else{
+                    display.value += buttonValue;
+                }
+            }
+        });
+
+        function calculate(expression){
+                const operators = ["+", "-", "*", "/"]
+                let operator = '';
+                let operands = [];
+                console.log(expression);
+                for(let i = 0; i < operators.lenth; i++){
+                    let index = expression.indexOf(operators[i])
+                    console.log(index);
+                    if(index !== -1){
+                        operator = operators[i];
+                        operands = expression.split(operators[i]);
+                        break
+                    }
+                }
+
+                let ops = {
+                    '+': (a, b) => a + b,
+                    '-': (a, b) => a - b,
+                    '*': (a, b) => a * b,
+                    '/': (a, b) => {if(b !== 0){
+                        return a / b
+                    }else{
+                        return 'Error'
+                    }}
+                }
+                console.log(operator, operands)
+                if(operator && operands.length === 2){
+                    const operands1 = Number(operands[0])
+                    const operands2 = Number(operands[1])
+                    return ops[operator](operands1, operands2)
+                }else return 'error'
+        }
+    </script>
+</body>
+</html>
